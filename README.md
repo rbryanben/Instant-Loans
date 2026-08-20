@@ -64,3 +64,73 @@ The customer is presented with:
 
 - 🆕 New Loan — Apply for a new loan based on the Recurrence Policy.
 - 💼 I Have a Salary — Indicate that they receive a salary, allowing the customer to proceed through the appropriate salary-related process.
+
+## 4. 🔌 API Requests
+
+### 4.1 ⚡ Calculate Eligibility
+
+The `calculate-eligible` endpoint is called after the customer selects an account and the system determines that the customer does not have an existing loan.
+
+```bash
+curl --location 'http://10.50.30.217:9091/api/v1/loans/calculate-eligible' \
+--header 'X-Request-Id: <unique-request-id>' \
+--header 'X-Api-Key: <api-key>' \
+--header 'Content-Type: application/json' \
+--data '{
+    "account_number": "500007903379"
+}'
+```
+
+### 4.2 💰 Get Salary
+
+The `get-salary` endpoint retrieves the salary identified for the selected account.
+
+```bash
+curl --location 'http://10.50.30.217:9091/api/v1/accounts/get-salary' \
+--header 'X-Request-Id: <unique-request-id>' \
+--header 'X-Api-Key: <api-key>' \
+--header 'Content-Type: application/json' \
+--data '{
+    "account_number": "500007903379"
+}'
+```
+
+### 4.3 🆕 New Loan
+
+The `new-loan` endpoint is called when an eligible customer selects **New Loan**.
+
+```bash
+curl --location 'http://10.50.30.217:9091/api/v1/loans/new-loan' \
+--header 'X-Request-Id: <unique-request-id>' \
+--header 'X-Api-Key: <api-key>' \
+--header 'Content-Type: application/json' \
+--data '{
+    "amount": 50,
+    "account_number": "500007903387"
+}'
+```
+
+### 4.4 👀 View Loan
+
+The `view-loan` endpoint is called when a customer with an existing loan selects **View Loan**.
+
+```bash
+curl --location 'http://10.50.30.217:9091/api/v1/loans/view-loan' \
+--header 'X-Request-Id: <unique-request-id>' \
+--header 'X-Api-Key: <api-key>' \
+--header 'Content-Type: application/json' \
+--data '{
+    "account_number": "500007903379"
+}'
+```
+
+### 🔐 Common Headers
+
+All AI Instant Loans API requests require the following headers:
+
+| Header         | Description                                 |
+| -------------- | ------------------------------------------- |
+| `X-Request-Id` | Unique identifier used to trace the request |
+| `X-Api-Key`    | API authentication key                      |
+| `Content-Type` | Specifies that the request body is JSON     |
+
